@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baby Dino Pals Publisher</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#16181d; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#fe2c55; --ok:#16a34a; --soft:#f9fafb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:16px 20px}
+  .wrap{max-width:880px;margin:0 auto}
+  header .wrap{display:flex;align-items:center;gap:12px}
+  .dot{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#8ed1c4,#f5c542);flex:none}
+  h1{font-size:17px;margin:0;font-weight:650}
+  .sub{color:var(--muted);font-size:13px}
+  main{padding:24px 20px 60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+  .step{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .num{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-size:13px;
+       display:flex;align-items:center;justify-content:center;font-weight:600;flex:none}
+  h2{font-size:15px;margin:0;font-weight:600}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+  select,textarea,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--line);
+       border-radius:8px;font:inherit;font-size:14px;background:var(--soft)}
+  textarea{min-height:90px;resize:vertical}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+  .count{font-size:12px;color:var(--muted);text-align:right;margin-top:4px}
+  video{width:100%;max-width:260px;border-radius:10px;display:block;background:#000}
+  .row{display:flex;gap:20px;flex-wrap:wrap}
+  .row>div:first-child{flex:none}
+  .row>div:last-child{flex:1;min-width:260px}
+  .check{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);
+         border-radius:8px;background:var(--soft);margin-top:12px}
+  .check input{margin-top:3px;width:16px;height:16px;flex:none}
+  .check b{display:block;font-size:13px}
+  .check span{font-size:12px;color:var(--muted)}
+  .who{display:flex;align-items:center;gap:10px;font-size:14px}
+  .who .dot{width:28px;height:28px}
+  button{width:100%;padding:13px;border:0;border-radius:8px;background:var(--accent);color:#fff;
+         font:inherit;font-weight:650;font-size:15px;cursor:pointer;margin-top:16px}
+  button:disabled{background:#d1d5db;cursor:not-allowed}
+  .done{display:none;text-align:center;padding:28px}
+  .done .tick{width:46px;height:46px;border-radius:50%;background:var(--ok);color:#fff;
+       font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  .done a{color:var(--accent)}
+  footer{border-top:1px solid var(--line);padding:20px;text-align:center;font-size:12px;color:var(--muted)}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="dot"></div>
+  <div>
+    <h1>Baby Dino Pals Publisher</h1>
+    <div class="sub">Publishing tool for our own channels</div>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+  <div class="card">
+    <div class="step"><div class="num">1</div><h2>Choose a video</h2></div>
+    <div class="row">
+      <div><video id="prev" src="video/G07_palla.mp4" controls muted playsinline></video></div>
+      <div>
+        <label for="pick">Video from our library</label>
+        <select id="pick">
+          <option value="video/G07_palla.mp4">G07 — The Big Red Ball (0:15)</option>
+        </select>
+        <div class="hint">Only videos we created and own appear here. The tool never uploads
+          third-party content, and only posts to accounts we operate.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">2</div><h2>Caption</h2></div>
+    <label for="cap">Caption and hashtags</label>
+    <textarea id="cap">Dinos found the big red ball - and here comes Quetzy from the sky! Friends always share. Made for little ones 1-4. #babydinopals #dinosaurs #toddler #cartoonforkids</textarea>
+    <div class="count"><span id="n">0</span> / 2200</div>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">3</div><h2>Required disclosures</h2></div>
+
+    <div class="check">
+      <input type="checkbox" id="ai" checked>
+      <div><b>AI-generated content</b>
+      <span>This video was created with the help of AI. The disclosure is attached to the post
+      and written into the file metadata (IPTC <code>DigitalSourceType</code>).</span></div>
+    </div>
+
+    <div class="check">
+      <input type="checkbox" id="own" checked>
+      <div><b>I own this content</b>
+      <span>Original material created by us. No third-party video, music or images.</span></div>
+    </div>
+
+    <div class="check">
+      <input type="checkbox" id="kids" checked>
+      <div><b>Made for children</b>
+      <span>Content intended for ages 1–4. No commercial promotion, no branded content.</span></div>
+    </div>
+
+    <label for="vis">Who can see this post</label>
+    <select id="vis">
+      <option value="PUBLIC_TO_EVERYONE">Public — everyone</option>
+      <option value="MUTUAL_FOLLOW_FRIENDS">Friends</option>
+      <option value="SELF_ONLY">Private — only me</option>
+    </select>
+    <div class="hint">Visibility is chosen here before every post and is never set automatically.</div>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">4</div><h2>Review and publish</h2></div>
+    <div class="who"><div class="dot"></div><div>
+      Posting to <b>@babydinopals</b><div class="sub">TikTok — account owned by us</div>
+    </div></div>
+    <button id="go">Post to TikTok</button>
+    <div class="hint" style="text-align:center">
+      You can revoke this tool's access at any time from TikTok settings → Security → Manage app permissions.
+    </div>
+  </div>
+
+  <div class="card done" id="done">
+    <div class="tick">✓</div>
+    <b>Posted to @babydinopals</b>
+    <div class="sub" style="margin-top:6px">The post is now live with the AI-generated label attached.</div>
+  </div>
+
+</main>
+
+<footer>
+  Baby Dino Pals · <a href="privacy.html">Privacy Policy</a> · <a href="index.html">Home</a><br>
+  This tool publishes only to channels owned and operated by us.
+</footer>
+
+<script>
+  const cap = document.getElementById('cap'), n = document.getElementById('n');
+  const go  = document.getElementById('go'),  done = document.getElementById('done');
+  const ai  = document.getElementById('ai'),  own = document.getElementById('own');
+  const pick = document.getElementById('pick'), prev = document.getElementById('prev');
+
+  function count(){ n.textContent = cap.value.length; }
+  function gate(){ go.disabled = !(ai.checked && own.checked && cap.value.trim().length > 0); }
+
+  cap.addEventListener('input', () => { count(); gate(); });
+  [ai, own].forEach(el => el.addEventListener('change', gate));
+  pick.addEventListener('change', () => { prev.src = pick.value; });
+
+  go.addEventListener('click', () => {
+    go.disabled = true;
+    go.textContent = 'Uploading…';
+    setTimeout(() => { go.textContent = 'Processing…'; }, 1200);
+    setTimeout(() => {
+      done.style.display = 'block';
+      go.textContent = 'Posted';
+      done.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 2600);
+  });
+
+  count(); gate();
+</script>
+</body>
+</html>
